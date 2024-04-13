@@ -1,5 +1,7 @@
 # Vue Study Jam
 
+![](./images/vue-study-jam.png)
+
 Welcome to the Vue Study Jam! This study jam is designed to help you learn Vue.js and build awesome web applications. Below are some resources that you may find helpful:
 
 ## Documentation
