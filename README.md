@@ -4,6 +4,12 @@
 
 Welcome to the Vue Study Jam! This study jam is designed to help you learn Vue.js and build awesome web applications. Below are some resources that you may find helpful:
 
+## Progress till now....
+
+#### Excercise 1
+
+Fav movie/anime/series ola characters list - form for adding characters - A section for faviortie list - a button for adding characters to faviortie list
+
 ## Some VScode Extensions
 
 [Extension Pack](https://marketplace.visualstudio.com/items?itemName=mubaidr.vuejs-extension-pack) 🚀
