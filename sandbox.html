@@ -7,5 +7,19 @@
 </head>
 <body>
     <h1>Welcome to the Study Jam - How nice of you to join!!</h1>
+    <div id="app">
+        {{ message}}
+    </div>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp } = Vue;
+        const app = createApp({
+            data() {
+                return {
+                    message: 'Eda mwone! scene!'
+                }
+            },
+        }).mount('#app');
+    </script>
 </body>
 </html>
