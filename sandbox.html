@@ -6,22 +6,24 @@
     <title>Vue.js Study Jam</title>
 </head>
 <body>
-    <h1>Welcome to the Study Jam - How nice of you to join!!</h1>
+    <h1>Favourite Movie Series: Harry Potter</h1>
     <div id="app">
-        <h1 v-if="message.length % 2 == 0">{{ message }}</h1>
-        <p v-else>There is nothing</p>
-
-        <button @click="show = !show">Toggle List</button>
-        <button @click="list.push(list.length + 1)">Push Number</button>
-        <button @click="list.pop()">Pop Number</button>
-        <button @click="list.reverse()">Reverse List</button>
-
-        <ul v-if="show && list.length">
-            <li v-for="item of list">{{ item }}</li>
+        <h2>Characters</h2>
+        <ul>
+            <li v-for="(item, index) in list" :key="index">
+                {{ item }}
+                <button @click="addToFavorites(item)">Add to Favorites</button>
+            </li>
         </ul>
-
-  <p v-else-if="list.length">List is not empty, but hidden.</p>
-  <p v-else>List is empty.</p>
+        <h2>Favorites List</h2>
+        <ul v-if="favoriteList.length">
+            <li v-for="(item, index) in favoriteList" :key="index">{{ item }}</li>
+        </ul>
+        <form @submit.prevent="addItem">
+            <label for="newItem">Add new item:</label>
+            <input type="text" id="newItem" v-model="newItem">
+            <button type="submit">Add</button>
+        </form>
 
 
     </div>
@@ -32,14 +34,21 @@
         const app = createApp({
             data() {
                 return {
-                    message: 'Hello World!',
-                    show: true,
-                    list: [1, 2, 3]
+                    message: 'Favourite Movie Series: Harry Potter',
+                    list: ['Harry', 'Ron','Hermione'],
+                    favoriteList: [],
+                    newItem: ''
                 }
             },
             methods: {
-                evaluate() {
-                    console.log('Evaluate')
+                addItem() {
+                    if (this.newItem.trim() !== '') {
+                        this.list.push(this.newItem);
+                        this.newItem = ''; 
+                    }
+                },
+                addToFavorites(item) {
+                    this.favoriteList.push(item);
                 }
             }
         
@@ -47,6 +56,6 @@
         
     </script>
 
-    <!-- Task to be done - fav movie/anime/series ola characters oru list - faviortie list -->
+     
 </body>
 </html>
