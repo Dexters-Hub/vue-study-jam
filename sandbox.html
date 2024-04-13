@@ -11,16 +11,21 @@
 
     <div id="app">
         <h1>{{message}}</h1>
+        <label for="">Enter characters name: </label>
+        <input v-model="txt" type="text" placeholder="Please enter name">
+        <button @click="list.push(txt)">Press me</button>
         <p>Characters list</p>
-        <ul v-for="items in list">
-            <li @click="fav.push(items)">{{items}}</li>
-        </ul>
+        <div v-if="list">
+            <ul v-for="items in list">
+                <li>{{items}} <button @click="fav.push(items)">⭐</button> <button @click="list.pop(items)">⛔</button></li>
+            </ul>
+        </div>
         <button @click="fav.sort()">Sort A-Z</button>
         <button @click="fav.reverse()">Sort Z-A</button>
         <button @click="fav.splice(0, fav.length)">Clear</button>
         <p>Faviortie Characters</p>
         <ul v-for="values in fav">
-            <li>{{values}} <button @click="fav.pop(values)">remove</button></li>
+            <li>{{values}} <button @click="fav.pop(values)">⛔</button></li>
         </ul>
     </div>
 
@@ -28,14 +33,16 @@
     <script>
         const { createApp } = Vue;
         const app = createApp({
+            // "Mamooty", "Arjun Ashokan", "Siddharth", "Amalda Liz", "Manikanda Rajan"
             data() {
                 return {
                     message: 'Bramayugam',
-                    list: ["Mamooty", "Arjun Ashokan", "Siddharth", "Amalda Liz", "Manikanda Rajan"],
+                    list: [],
                     fav: []
                 }
             },
             methods: {
+               
             }
         }).mount('#app')
     </script>
