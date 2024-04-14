@@ -18,21 +18,21 @@
             <button type="submit">Add Character</button>
         </form>
 
-        <button @click="show = !show">Characters List</button>
-
-        <ul v-if="show && list.length">
+        <h3>Character List</h3>
+        <ul v-if="list.length">
             <li v-for="item of list">
                 {{ item }}
                 <button @click="addToFav(item)">Add to Fav</button>
             </li>
         </ul>
-        
-        <ul v-else-if="list.length && fav.length">
+        <p v-else>List is empty.</p>
+
+        <h3>Favourites</h3>
+        <ul v-if="list.length && fav.length">
             <li v-for="item of fav">{{ item }}</li>
         </ul>
         <p v-else-if="list.length">List is not empty, but no fav.</p>
-  <p v-else>List is empty.</p>
-
+        <p v-else></p>
 
     </div>
     
