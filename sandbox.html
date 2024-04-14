@@ -11,16 +11,26 @@
         <h1 v-if="message.length % 2 == 0">{{ message }}</h1>
         <p v-else>There is nothing</p>
 
-        <button @click="show = !show">Toggle List</button>
-        <button @click="list.push(list.length + 1)">Push Number</button>
-        <button @click="list.pop()">Pop Number</button>
-        <button @click="list.reverse()">Reverse List</button>
+        <h2>Add a Character</h2>
+        <form @submit.prevent="addCharacter">
+            <label for="name">Name:</label>
+            <input type="text" id="name" v-model="newCharacterName">
+            <button type="submit">Add Character</button>
+        </form>
+
+        <button @click="show = !show">Characters List</button>
 
         <ul v-if="show && list.length">
-            <li v-for="item of list">{{ item }}</li>
+            <li v-for="item of list">
+                {{ item }}
+                <button @click="addToFav(item)">Add to Fav</button>
+            </li>
         </ul>
-
-  <p v-else-if="list.length">List is not empty, but hidden.</p>
+        
+        <ul v-else-if="list.length && fav.length">
+            <li v-for="item of fav">{{ item }}</li>
+        </ul>
+        <p v-else-if="list.length">List is not empty, but no fav.</p>
   <p v-else>List is empty.</p>
 
 
@@ -32,14 +42,22 @@
         const app = createApp({
             data() {
                 return {
-                    message: 'Hello World!',
+                    message: 'Siiiuuuuuuu!',
                     show: true,
-                    list: [1, 2, 3]
+                    list: ["Naruto", "Itachi", "Light yagami"],
+                    fav: [],
                 }
             },
             methods: {
                 evaluate() {
                     console.log('Evaluate')
+                },
+                addCharacter() {
+                    this.list.push(this.newCharacterName);
+                    this.newCharacterName = '';
+                },
+                addToFav(item){
+                    this.fav.push(item);
                 }
             }
         
