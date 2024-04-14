@@ -34,11 +34,7 @@
       <p v-else>List is empty</p>
 
       <form @submit.prevent="push">
-        <input
-          v-model="ch"
-          type="text"
-          placeholder="Add more characters"
-        />
+        <input v-model="ch" type="text" placeholder="Add more characters" />
         <button type="submit">Add!</button>
       </form>
 
@@ -86,8 +82,10 @@
             this.fav.push(this.chars[index]);
           },
           push() {
-            this.chars.push(this.ch);
-            this.ch = "";
+            if (this.ch.length != 0) {
+              this.chars.push(this.ch);
+              this.ch = "";
+            }
           },
         },
       }).mount("#app");
