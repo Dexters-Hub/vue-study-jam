@@ -6,7 +6,35 @@ Welcome to the Vue Study Jam! This study jam is designed to help you learn Vue.j
 
 ## Progress till now....
 
-#### Excercise 1
+### Excercise 2
+
+#### The Book List (20 mins)
+
+Steps involved:
+
+1. Use create-vue to create your own vue project after forking the repo in submissions folder inside your username folder - [here](./submissions/the-book-list-02/Dexters-Hub/)
+
+   ```
+   The submissions must be done in submission folder forking the repo branch - to fetch latest changes to your local refer google as source :D
+   ```
+
+   ```js
+   ./submissions/the-book-list/[Your-Username]/[project-name]
+   ```
+
+2. You will be having App.vue as one - and you need to create a component called `BookList` to list books with `name of the book, author, genre, year` - clue: use `props`
+
+3. create another component `BookForm` form to add new books to the list - clue: use `emits`
+
+4. Inside App Component use `watch` to update the heading of the page with the the latest book added - or top
+
+5. Use `computed` to display the number of books
+
+6. Create a layout - at first to divide the section for each component in App to wrap itself - clue: use `slots`
+
+---
+
+### Excercise 1
 
 Fav movie/anime/series ola characters list - form for adding characters - A section for faviortie list - a button for adding characters to faviortie list
 
