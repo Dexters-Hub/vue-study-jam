@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Study Jam</title>
+</head>
+<body>
+    <h1>Welcome to the Study Jam - How nice of you to join!!</h1>
+    <div id="app">
+        <h1 v-if="message.length % 2 == 0">{{ message }}</h1>
+        <p v-else>There is nothing</p>
+
+        <h2>Add a Character</h2>
+        <form @submit.prevent="addCharacter">
+            <label for="name">Name:</label>
+            <input type="text" id="name" v-model="newCharacterName">
+            <button type="submit">Add Character</button>
+        </form>
+
+        <h3>Character List</h3>
+        <ul v-if="list.length">
+            <li v-for="item of list">
+                {{ item }}
+                <button @click="addToFav(item)">Add to Fav</button>
+            </li>
+        </ul>
+        <p v-else>List is empty.</p>
+
+        <h3>Favourites</h3>
+        <ul v-if="list.length && fav.length">
+            <li v-for="item of fav">{{ item }}</li>
+        </ul>
+        <p v-else-if="list.length">List is not empty, but no fav.</p>
+        <p v-else></p>
+
+    </div>
+    
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp } = Vue;
+        const app = createApp({
+            data() {
+                return {
+                    message: 'Siiiuuuuuuu!',
+                    show: true,
+                    list: ["Naruto", "Itachi", "Light yagami"],
+                    fav: [],
+                }
+            },
+            methods: {
+                evaluate() {
+                    console.log('Evaluate')
+                },
+                addCharacter() {
+                    this.list.push(this.newCharacterName);
+                    this.newCharacterName = '';
+                },
+                addToFav(item){
+                    this.fav.push(item);
+                }
+            }
+        
+        }).mount('#app')
+        
+    </script>
+
+    <!-- Task to be done - fav movie/anime/series ola characters oru list - faviortie list  - when clicked on a button - it should go to fav list-->
+</body>
+</html>
