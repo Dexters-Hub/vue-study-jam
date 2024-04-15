@@ -1,43 +1,40 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>--FAVOURITE_CHARACTER---</title>
-</head>
-<body>
-  <div id="app">
-    <h1>-----------CREATE_FAVOURITE_CHARACTER_LIST-------------</h1>
-    <form @submit.prevent="submitForm">
-      <label for="name">ENTER_THE_NAME</label>
-      <input type="text" id="name" v-model="formData.name" required><br>
-      <button type="submit">CLICK ME!</button>
-    </form>
+<script setup>
+import { ref } from 'vue'
 
-    <h2>LIST_OF_FAVOURITE_CHARACTERS</h2>
-    <ul>
-      <li v-for="(value, key) in submittedData" :key="key">{{ value }}</li>
-    </ul>
-  </div>
+let id = 0
 
-  <!-- Vue.js CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
-  <script>
-    new Vue({
-      el: '#app',
-      data: {
-        formData: {
-           name:''
-        },
-        submittedData: {}
-      },
-      methods: {
-        submitForm() {
-          this.submittedData[this.formData.name] = this.formData.name;
-          this.formData.name = ''; 
-        }
-      }
-    });
-  </script>
-</body>
-</html>
+const charList = ref([])
+const newChar = ref('')
+const favourites = ref([])
+
+function addChar() {
+  charList.value.push({ id: id++, text: newChar.value })
+  newChar.value = ''
+}
+
+
+function addToFavourites(charac) {
+  favourites.value.push(charac.text)
+}
+</script>
+
+<template>
+  <form @submit.prevent="addChar">
+    <input v-model="newChar" required placeholder="new char">
+    <button>Add Character</button>
+  </form>
+  <ul>
+    <li v-for="charac in charList" :key="charac.id">
+      {{ charac.text }}
+    
+      <button @click="addToFavourites(charac)">fav</button>
+    </li>
+  </ul>
+
+  <h2>Favourites</h2>
+  <ul>
+    <li v-for="(fav, index) in favourites" :key="index">
+      {{ fav }}
+    </li>
+  </ul>
+</template>
