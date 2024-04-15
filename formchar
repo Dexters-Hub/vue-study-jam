@@ -1,0 +1,40 @@
+<script setup>
+import { ref } from 'vue'
+
+let id = 0
+
+const charList = ref([])
+const newChar = ref('')
+const favourites = ref([])
+
+function addChar() {
+  charList.value.push({ id: id++, text: newChar.value })
+  newChar.value = ''
+}
+
+
+function addToFavourites(charac) {
+  favourites.value.push(charac.text)
+}
+</script>
+
+<template>
+  <form @submit.prevent="addChar">
+    <input v-model="newChar" required placeholder="new char">
+    <button>Add Character</button>
+  </form>
+  <ul>
+    <li v-for="charac in charList" :key="charac.id">
+      {{ charac.text }}
+    
+      <button @click="addToFavourites(charac)">fav</button>
+    </li>
+  </ul>
+
+  <h2>Favourites</h2>
+  <ul>
+    <li v-for="(fav, index) in favourites" :key="index">
+      {{ fav }}
+    </li>
+  </ul>
+</template>
