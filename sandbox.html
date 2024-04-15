@@ -3,50 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vue.js Study Jam</title>
+    <title>Document</title>
 </head>
 <body>
-    <h1>Welcome to the Study Jam - How nice of you to join!!</h1>
-    <div id="app">
-        <h1 v-if="message.length % 2 == 0">{{ message }}</h1>
-        <p v-else>There is nothing</p>
-
-        <button @click="show = !show">Toggle List</button>
-        <button @click="list.push(list.length + 1)">Push Number</button>
-        <button @click="list.pop()">Pop Number</button>
-        <button @click="list.reverse()">Reverse List</button>
-
-        <ul v-if="show && list.length">
-            <li v-for="item of list">{{ item }}</li>
+<div id="app">
+    <h1>Anime Characters</h1>
+    <h2>
+        <ul v-for="item in characters" :key="item">
+            <li>
+                {{item}}
+                <button @click="addfav(item)">Add to Favourites</button>
+            </li>
         </ul>
-
-  <p v-else-if="list.length">List is not empty, but hidden.</p>
-  <p v-else>List is empty.</p>
-
-
+    </h2>
+    <div>
+        <h1>Favourites</h1>
+        <h2>
+            <ul v-for="fav in favourites" :key="fav">
+                <li>
+                    {{fav}}
+                    <button @click="removefav(fav)">Remove from Favourites</button>
+                </li>
+            </ul>
+        </h2>
     </div>
-    
+</div>
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
-        const { createApp } = Vue;
-        const app = createApp({
-            data() {
-                return {
-                    message: 'Hello World!',
-                    show: true,
-                    list: [1, 2, 3]
+        const {createApp} = Vue;
+        const app= createApp({
+            data(){
+                return{
+                    characters:["Naruto","Goku","Luffy","Sung Jinwoo","Vegeta","Itachi","Pain","Ace"],
+                    favourites: [ ],
+                };
+            },
+            methods:{
+                addfav(item){
+                    this.favourites.push(item);
+                },
+                removefav(fav){
+                    this.favourites.pop(fav);
                 }
             },
-            methods: {
-                evaluate() {
-                    console.log('Evaluate')
-                }
-            }
-        
-        }).mount('#app')
-        
+            
+            
+        });
+        app.mount("#app");
     </script>
-
-    <!-- Task to be done - fav movie/anime/series ola characters oru list - faviortie list  - when clicked on a button - it should go to fav list-->
 </body>
 </html>
