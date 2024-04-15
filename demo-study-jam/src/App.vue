@@ -1,83 +1,73 @@
 <script>
-import ListItem from './components/ListItem.vue'
-import UserCard from './components/UserCard.vue'
-import BaseButton from './components/BaseButton.vue'
+import MovieLayout from './components/MovieLayout.vue'
+import FilterComp from './components/FilterComp.vue'
+import SearchComp from './components/SearchComp.vue'
 export default {
+  components: {
+    MovieLayout,
+    FilterComp,
+    SearchComp
+  },
   data() {
     return {
-      message: 'Hello World!',
-      show: true,
-      list: [1, 2, 3],
-      userList: {
-        name: 'John',
-        email: 'john@example.com'
-      }
+      movies: [
+        {
+          id: 1,
+          title: 'Premam',
+          actor: 'Nivin Pauly',
+          rating: 4.5,
+          poster: 'https://m.media-amazon.com/images/M/MV5BMzJhNjMyOGMtYjhiYy00ZTAwLThmZWUtZmE5NzI3OTk4Y2M4XkEyXkFqcGdeQXVyMzQ5Njc3NzU@._V1_.jpg'
+        },
+        {
+          id: 2,
+          title: 'Drishyam',
+          actor: 'Mohanlal',
+          rating: 9.1,
+          poster: 'https://m.media-amazon.com/images/M/MV5BM2RiZDVjYWEtZGNhYy00ZGU0LTgwZjMtZTJmNmMyNGQ5NGYyXkEyXkFqcGdeQXVyNjY1MTg4Mzc@._V1_.jpg'
+        },
+        {
+          id: 3,
+          title: 'Kumbalangi Nights',
+          actor: 'Fahadh Faasil',
+          rating: 8.7,
+          poster: 'https://m.media-amazon.com/images/M/MV5BNjU5MmQwMWYtMGFiMS00NTRiLThiODAtMzNkNzU1MWNjYTllXkEyXkFqcGdeQXVyMjkxNzQ1NDI@._V1_.jpg'
+        },
+      ]
     }
   },
-  components: {
-    ListItem,
-    UserCard,
-    BaseButton
-  },
-  computed: {
-    // computed example
-    evenNumbers() {
-      return this.list.filter((item) => item % 2 === 0)
-    }
-  },
+  methods:{
+        // filtering
+        filterMovies(){
+          console.log("ruNNING")
+            this.movies = this.movies.filter(movie => movie.rating < 8)
+        },
 
-  watch: {
-    // watch example
-    list: {
-      handler() {
-        console.log('List changed')
-      },
-      deep: true
+        // searching
+        searchMovies(name){
+          console.log("App running search", name)
+          this.movies = this.movies.filter(movie => movie.title.toLowerCase().includes(name.toLowerCase()))
+        }
     }
-  },
-
-  methods: {
-    // evalauate to evaluate
-    evaluate() {
-      this.list.push(this.list.length + 1)
-    }
-  }
-  // watchers and computed
 }
 </script>
 
 <template>
-  <h1>Welcome to the Study Jam - How nice of you to join!!</h1>
-
-  <h1>Day - 2</h1>
-  <!-- props -->
-  <ListItem :list="list" />
-
-  <!-- emits -->
-  <UserCard :user="userList" @evaluate="evaluate" />
-
-  <BaseButton :left="true"> </BaseButton>
-
-  <!-- computed -->
-  <p v-if="evenNumbers.length">Even Numbers: {{ evenNumbers }}</p>
-
-  <!-- watch -->
-  <button @click="evaluate">Evaluate</button>
-
-  <!-- v-if, v-else, v-else-if -->
-  <h1>Day - 1</h1>
-  <h1 v-if="message.length % 2 == 0">{{ message }}</h1>
-  <p v-else>There is nothing</p>
-
-  <button @click="show = !show">Toggle List</button>
-  <button @click="list.push(list.length + 1)">Push Number</button>
-  <button @click="list.pop()">Pop Number</button>
-  <button class="reverse-button" @click="list.reverse()">Reverse List</button>
-
-  <ul v-if="show && list.length">
-    <li v-for="(item, index) of list" :key="index">{{ item }}</li>
-  </ul>
-
-  <p v-else-if="list.length">List is not empty, but hidden.</p>
-  <p v-else>List is empty.</p>
+  <!-- main container -->
+  <div class="container mx-auto px-4">
+    <!-- header -->
+    <header class="flex items-center justify-between py-4">
+      <h1 class="text-3xl font-semibold">Movie App</h1>
+    </header>
+    <!-- main content -->
+    <main>
+      <!-- movie layout -->
+      <!-- filtering -->
+      <div class="flex space-x-4">
+        <SearchComp @search="searchMovies" />
+        <FilterComp @filter="filterMovies" /></div>
+        
+      
+      <MovieLayout :movies="movies" />
+    </main>
+    </div>
 </template>
