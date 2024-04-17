@@ -1,52 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vue.js Study Jam</title>
-</head>
-<body>
+  </head>
+  <body>
     <h1>Welcome to the Study Jam - How nice of you to join!!</h1>
     <div id="app">
-        <h1 v-if="message.length % 2 == 0">{{ message }}</h1>
-        <p v-else>There is nothing</p>
+      <h1 v-if="message.length % 2 == 0">{{ message }}</h1>
+      <p v-else>There is nothing</p>
 
-        <button @click="show = !show">Toggle List</button>
-        <button @click="list.push(list.length + 1)">Push Number</button>
-        <button @click="list.pop()">Pop Number</button>
-        <button @click="list.reverse()">Reverse List</button>
+      <button @click="show = !show">Toggle List</button>
+      <button @click="list.push(list.length + 1)">Push Number</button>
+      <button @click="list.pop()">Pop Number</button>
+      <button @click="list.reverse()">Reverse List</button>
 
-        <ul v-if="show && list.length">
-            <li v-for="item of list">{{ item }}</li>
-        </ul>
+      <ul v-if="show && list.length">
+        <li v-for="item of list">{{ item }}</li>
+      </ul>
 
-  <p v-else-if="list.length">List is not empty, but hidden.</p>
-  <p v-else>List is empty.</p>
+      <p v-else-if="list.length">List is not empty, but hidden.</p>
+      <p v-else>List is empty.</p>
 
+      <!-- task 1 -->
 
+      <h2>Characters</h2>
+      <ul v-if="chars.length">
+        <li v-for="(c,index) in chars" :key="index" @click="move(index)">
+          {{c}}
+        </li>
+      </ul>
+      <p v-else>List is empty</p>
+
+      <form @submit.prevent="push">
+        <input v-model="ch" type="text" placeholder="Add more characters" />
+        <button type="submit">Add!</button>
+      </form>
+
+      <h3>Favourite List</h3>
+      <ul v-if="fav.length">
+        <li v-for="f in fav">{{f}}</li>
+      </ul>
+      <p v-else>No favourites right now!</p>
     </div>
-    
+
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <script>
-        const { createApp } = Vue;
-        const app = createApp({
-            data() {
-                return {
-                    message: 'Hello World!',
-                    show: true,
-                    list: [1, 2, 3]
-                }
-            },
-            methods: {
-                evaluate() {
-                    console.log('Evaluate')
-                }
+      const { createApp } = Vue;
+      const app = createApp({
+        data() {
+          return {
+            message: "Hello World!",
+            show: true,
+            list: [1, 2, 3],
+            chars: [
+              "Eren",
+              "Mikasa",
+              "Armin",
+              "Levi",
+              "Sasha",
+              "Zeke",
+              "Reiner",
+              "Annie",
+              "Jean",
+              "Connie",
+              "Historia",
+              "Erwin",
+              "Hange",
+              "Gabi",
+            ],
+            fav: [],
+            ch: "",
+          };
+        },
+        methods: {
+          evaluate() {
+            console.log("Evaluate");
+          },
+          move(index) {
+            this.fav.push(this.chars[index]);
+          },
+          push() {
+            if (this.ch.length != 0) {
+              this.chars.push(this.ch);
+              this.ch = "";
             }
-        
-        }).mount('#app')
-        
+          },
+        },
+      }).mount("#app");
     </script>
-
-    <!-- Task to be done - fav movie/anime/series ola characters oru list - faviortie list  - when clicked on a button - it should go to fav list-->
-</body>
+  </body>
 </html>
