@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Favorite Characters</title>
+  <style>
+  </style>
+</head>
+<body>
+  <h1>Favorite Characters</h1>
+<form id="characterForm">
+    <label for="characterName">Character Name:</label>
+    <input type="text" id="characterName" name="characterName" required>
+<label for="title">Title (Movie/Anime/Series):</label>
+    <input type="text" id="title" name="title" required>
+    <button type="submit">Add to Favorites</button>
+  </form>
+ <h2>Favorite Characters List</h2>
+  <ul id="favoritesList">
+  <!-- Favorite characters will be dynamically added here -->
+  </ul>
+<script>
+  </script>
+</body>
+</html>
