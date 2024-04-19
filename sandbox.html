@@ -15,13 +15,32 @@
         <button @click="list.push(list.length + 1)">Push Number</button>
         <button @click="list.pop()">Pop Number</button>
         <button @click="list.reverse()">Reverse List</button>
+        <button @click="show1 = !show1">Character List</button>
+        <button @click="show2 = !show2">Favourite list</button>
+        <button @click="favlist.push(prompt('Enter favourite character:'))">Add Favourite Character</button>
 
         <ul v-if="show && list.length">
             <li v-for="item of list">{{ item }}</li>
         </ul>
 
-  <p v-else-if="list.length">List is not empty, but hidden.</p>
-  <p v-else>List is empty.</p>
+    <p v-else-if="list.length">List is not empty, but hidden.</p>
+    <p v-else>List is empty.</p>
+      
+
+        <ul v-if="show1 && charalist.length">
+            <li v-for="item of charalist">{{ item }}</li>
+        </ul>
+
+    <p v-else-if="charalist.length">Character List is not empty, but hidden.</p>
+    <p v-else>Character List is empty.</p>
+
+        <ul v-if="show2 && favlist.length">
+            <li v-for="item of favlist">{{ item }}</li>
+        </ul>
+    
+    <p v-else-if="favlist.length">Favourite List is not empty, but hidden.</p>
+    <p v-else>Favourite List is empty.</p>   
+
 
 
     </div>
@@ -34,7 +53,11 @@
                 return {
                     message: 'Hello World!',
                     show: true,
-                    list: [1, 2, 3]
+                    list: [1, 2, 3],
+                    show1: true,
+                    show2: true,
+                    charalist: ['luffy','zoro','tanjiro','midoriya','kageyama','otosaka yuu'],
+                    favlist: ['luffy','kageyama'],
                 }
             },
             methods: {
