@@ -1,0 +1,126 @@
+<!-- App.vue -->
+<template>
+  <div id="app">
+    <Header :latestBook="latestBook" />
+    <BookList :books="books" />
+    <BookForm @newBookAdded="updateLatestBook" />
+    <p>Total Books: {{ totalBooks }}</p>
+  </div>
+</template>
+
+<script>
+import { ref, watch, computed } from 'vue';
+import Header from './components/Header.vue';
+import BookList from './components/BookList.vue';
+import BookForm from './components/BookForm.vue';
+
+export default {
+  components: {
+    Header,
+    BookList,
+    BookForm
+  },
+  setup() {
+    const books = ref([]);
+    const latestBook = ref(null);
+
+    const updateLatestBook = (book) => {
+      latestBook.value = book;
+    };
+
+    const totalBooks = computed(() => {
+      return books.value.length;
+    });
+
+    watch(latestBook, () => {
+      // Update the heading of the page with the latest book added
+      document.title = latestBook.value ? latestBook.value.name : 'The Book List';
+    });
+
+    return { books, latestBook, updateLatestBook, totalBooks };
+  }
+};
+</script>
+
+<!-- Header.vue -->
+<template>
+  <header>
+    <h1>{{ latestBook ? `Latest Book: ${latestBook.name}` : 'The Book List' }}</h1>
+  </header>
+</template>
+
+<script>
+export default {
+  props: {
+    latestBook: Object
+  }
+};
+</script>
+
+<!-- BookList.vue -->
+<template>
+  <div>
+    <h2>Book List</h2>
+    <ul>
+      <li v-for="book in books" :key="book.id">
+        {{ book.name }} by {{ book.author }} ({{ book.genre }}, {{ book.year }})
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    books: Array
+  }
+};
+</script>
+
+<!-- BookForm.vue -->
+<template>
+  <div>
+    <h2>Add New Book</h2>
+    <form @submit.prevent="addBook">
+      <input type="text" v-model="name" placeholder="Book Name" required>
+      <input type="text" v-model="author" placeholder="Author" required>
+      <input type="text" v-model="genre" placeholder="Genre" required>
+      <input type="number" v-model="year" placeholder="Year" required>
+      <button type="submit">Add Book</button>
+    </form>
+  </div>
+</template>
+
+<script>
+import { ref } from 'vue';
+
+export default {
+  emits: ['newBookAdded'],
+  setup(_, { emit }) {
+    const name = ref('');
+    const author = ref('');
+    const genre = ref('');
+    const year = ref('');
+
+    const addBook = () => {
+      const newBook = {
+        id: Date.now(), // simple unique id
+        name: name.value,
+        author: author.value,
+        genre: genre.value,
+        year: parseInt(year.value)
+      };
+      emit('newBookAdded', newBook);
+      // Clear the form fields after adding the book
+      name.value = '';
+      author.value = '';
+      genre.value = '';
+      year.value = '';
+    };
+
+    return { name, author, genre, year, addBook };
+  }
+};
+</script>
+
+     
