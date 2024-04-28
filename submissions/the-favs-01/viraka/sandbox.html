@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vue.js Study Jam</title>
+</head>
+
+<body>
+    <h1>Welcome to the Study Jam - How nice of you to join!!</h1>
+    <div id="app">
+        <h1 v-if="message.length % 2 == 0">{{ message }}</h1>
+        <p v-else>There is nothing</p>
+
+        <button @click="show = !show">Toggle List</button>
+        <button @click="list.push(list.length + 1)">Push Number</button>
+        <button @click="list.pop()">Pop Number</button>
+        <button @click="list.reverse()">Reverse List</button>
+
+
+        <h2>List</h2>
+        <ul v-if="show && list.length">
+            <li v-for="(item,index) of list" :key="index">
+                {{ item }}
+                <button @click="removeFromList(index)">Remove</button>
+                <button v-if="!favourites.includes(item)" @click="addToFavourites(item)">Add to Favourites</button>
+            </li>
+        </ul>
+
+        <p v-else-if="list.length">List is not empty, but hidden.</p>
+        <p v-else>List is empty.</p>
+
+        <h2>Favourites</h2>
+        <ul v-if="show && favourites.length">
+            <li v-for="(item,index) of favourites" :key="index">
+                {{ item }}
+            </li>
+        </ul>
+        <p v-else-if="favourites.length">Favourites List is not empty, but hidden.</p>
+        <p v-else>Favourites List is empty.</p>
+
+        <form @submit.prevent="addToList()">
+            <label for="newItem">Add new item</label>
+            <input type="text" v-bind:value="newItem" v-on:input="newItem = $event.target.value">
+            <button type="submit">Add</button>
+        </form>
+
+
+    </div>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script>
+        const { createApp } = Vue;
+        const app = createApp({
+            data() {
+                return {
+                    message: 'Hello World!',
+                    show: true,
+                    list: ["Hanekawa", "Kageyama", "Asta", "Bojji", "Subaru", "Garou", "Killua"],
+                    favourites: [],
+                    newItem: ''
+                }
+            },
+            methods: {
+                evaluate() {
+                    console.log('Evaluate')
+                },
+                addToList() {
+                    this.list.push(this.newItem)
+                    this.newItem = ''
+                },
+                addToFavourites(item) {
+                    this.favourites.push(item);
+                },
+                removeFromList(index) {
+                    const removedItem = this.list[index];
+                    this.list = this.list.filter(item => item !== removedItem);
+                    this.favourites = this.favourites.filter(item => item !== removedItem);
+
+                    // Dont mind this i was just trying some stuff out XD
+                }
+            },
+            watch: {
+                list() {
+                    console.log('List changed')
+                }
+            }
+
+        }).mount('#app')
+
+    </script>
+
+    <!-- Task to be done - fav movie/anime/series ola characters oru list - faviortie list  - when clicked on a button - it should go to fav list-->
+</body>
+
+</html>
